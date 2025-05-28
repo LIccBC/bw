@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米登录</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #fff;
+            font-family: 'Segoe UI', '微软雅黑', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('img/小米背景.png');
+            background-size: 100%;
+        }
+
+        .login-card {
+            width: 370px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 32px #f3eaea;
+            padding: 38px 36px 32px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .login-logo img {
+            width: 44px;
+            height: 44px;
+        }
+
+        .login-logo span {
+            font-size: 26px;
+            color: #f56600;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .login-title {
+            font-size: 22px;
+            color: #232323;
+            font-weight: bold;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        .login-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #eee;
+            border-radius: 7px;
+            font-size: 16px;
+            background: #fafafa;
+            transition: border 0.2s;
+        }
+
+        .login-form input:focus {
+            border: 1.5px solid #f56600;
+            outline: none;
+        }
+
+        .login-form .form-row {
+            position: relative;
+        }
+
+        .login-form .toggle-pwd {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #bbb;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .login-form .toggle-pwd.active {
+            color: #f56600;
+        }
+
+        .login-form .remember-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .login-form .remember-row input[type="checkbox"] {
+            accent-color: #f56600;
+        }
+
+        .login-form .login-btn {
+            width: 100%;
+            padding: 12px 0;
+            background: #f56600;
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+
+        .login-form .login-btn:hover {
+            background: #d35400;
+        }
+
+        .login-links {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0 0 0;
+            font-size: 14px;
+        }
+
+        .login-links a {
+            color: #f56600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .login-links a:hover {
+            text-decoration: underline;
+            color: #d35400;
+        }
+
+        .other-login {
+            width: 100%;
+            text-align: center;
+            margin: 32px 0 10px 0;
+            color: #aaa;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .other-login-icons {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .other-login-icons a {
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #fbeee6;
+            color: #f56600;
+            font-size: 22px;
+            line-height: 38px;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+        }
+
+        .other-login-icons a:hover {
+            background: #f56600;
+            color: #fff;
+        }
+
+        .login-footer {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #bbb;
+            margin-top: 32px;
+        }
+
+        @media (max-width: 500px) {
+            .login-card {
+                width: 98vw;
+                padding: 18px 2vw 12px 2vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="login-logo">
+            <a href="index.html"><img src="img/logo.png" alt="logo"></a>
+            <span>小米账号</span>
+        </div>
+        <div class="login-title">欢迎登录</div>
+        <form class="login-form" autocomplete="off">
+            <div class="form-row">
+                <input type="text" placeholder="手机号/邮箱/小米ID" required>
+            </div>
+            <div class="form-row">
+                <input type="password" placeholder="密码" id="pwd" required>
+                <span class="toggle-pwd" id="togglePwd">&#128065;</span>
+            </div>
+            <div class="remember-row">
+                <input type="checkbox" id="remember">
+                <label for="remember">记住我</label>
+            </div>
+            <button type="submit" class="login-btn">登录</button>
+        </form>
+        <div class="login-links">
+            <a href="#">忘记密码？</a>
+            <a href="register.html">立即注册</a>
+        </div>
+        <div class="other-login">其他方式登录</div>
+        <!-- <div class="other-login-icons">
+            <a href="#" title="微信">&#xe600;</a>
+            <a href="#" title="QQ">&#xe882;</a>
+            <a href="#" title="微博">&#xe608;</a>
+            <a href="#" title="Apple">&#xf8ff;</a>
+        </div> -->
+        <div class="login-footer">
+            小米公司版权所有-京ICP备10046444-京公网安备11010802020134号-京ICP证110507号
+        </div>
+    </div>
+    <script>
+        // 密码可见切换
+        document.getElementById('togglePwd').onclick = function () {
+            const pwd = document.getElementById('pwd');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                this.classList.add('active');
+            } else {
+                pwd.type = 'password';
+                this.classList.remove('active');
+            }
+        };
+        // 阻止表单提交（演示用）
+        document.querySelector('.login-form').onsubmit = function (e) {
+            e.preventDefault();
+            alert('登录成功！（演示页面）');
+        }
+    </script>
+</body>
+
+</html>

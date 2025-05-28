@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米14 Pro - 商品详情</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            font-family: 'Segoe UI', '微软雅黑', Arial, sans-serif;
+        }
+
+        .detail-container {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #f3eaea;
+            padding: 36px 32px 28px 32px;
+            display: flex;
+            gap: 48px;
+        }
+
+        .detail-imgs {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-img {
+            width: 340px;
+            height: 340px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px #eee;
+            margin-bottom: 18px;
+            background: #fafafa;
+        }
+
+        .thumbs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .thumbs img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border 0.2s;
+        }
+
+        .thumbs img.active,
+        .thumbs img:hover {
+            border: 2px solid #f56600;
+        }
+
+        .detail-info {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .product-title {
+            font-size: 2em;
+            color: #232323;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .product-desc {
+            color: #888;
+            font-size: 17px;
+            margin-bottom: 18px;
+        }
+
+        .product-price {
+            font-size: 28px;
+            color: #f56600;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .product-attrs {
+            margin-bottom: 18px;
+        }
+
+        .product-attrs span {
+            display: inline-block;
+            background: #fffbe6;
+            color: #f56600;
+            border-radius: 6px;
+            padding: 6px 18px;
+            font-size: 15px;
+            margin-right: 12px;
+            margin-bottom: 8px;
+        }
+
+        .product-actions {
+            margin-bottom: 24px;
+        }
+
+        .product-actions button {
+            background: #f56600;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 38px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 18px;
+            transition: background 0.2s;
+        }
+
+        .product-actions button:last-child {
+            background: #fffbe6;
+            color: #f56600;
+            border: 1.5px solid #f56600;
+        }
+
+        .product-actions button:hover {
+            background: #d35400;
+            color: #fff;
+        }
+
+        .product-actions button:last-child:hover {
+            background: #ffe5e5;
+            color: #f56600;
+        }
+
+        .product-specs {
+            margin-top: 32px;
+            background: #fafafa;
+            border-radius: 10px;
+            padding: 22px 24px;
+            box-shadow: 0 1px 6px #f3eaea;
+        }
+
+        .product-specs h3 {
+            color: #f56600;
+            margin-bottom: 14px;
+            font-size: 18px;
+        }
+
+        .product-specs ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: #232323;
+            font-size: 15px;
+        }
+
+        .product-specs li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .detail-container {
+                flex-direction: column;
+                gap: 18px;
+                padding: 18px 2vw;
+            }
+
+            .main-img {
+                width: 90vw;
+                height: 90vw;
+                max-width: 340px;
+                max-height: 340px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- 顶部LOGO和标题 -->
+    <div style="display: flex; align-items: center;margin-left: 180px; margin-top: 28px; margin-bottom: 18px;">
+        <a href="index.html"><img src="img/logo.png" alt="logo" style="width:40px; height:40px; margin-right:12px;"></a>
+        <span style="font-size: 26px; color: #000000; font-weight: bold; letter-spacing: 2px;">小米13 Pro</span>
+    </div>
+
+
+    <div class="detail-container">
+
+        <!-- 商品图片区 -->
+        <div class="detail-imgs">
+            <img id="mainImg" class="main-img" src="carimg/q2.png" alt="小米13 Pro">
+            <div class="thumbs">
+                <img src="carimg/q2.png" alt="小米13 Pro 绿色" class="active" onclick="changeImg(this)">
+                <img src="carimg/q8.png" alt="小米13 Pro 蓝色" onclick="changeImg(this)">
+                <img src="carimg/q9.jpg" alt="小米13 Pro 黑色" onclick="changeImg(this)">
+            </div>
+        </div>
+        <!-- 商品信息区 -->
+        <div class="detail-info">
+            <div class="product-title">小米13 Pro 5G旗舰手机</div>
+            <div class="product-desc">
+                2K全等深微曲屏 | 徕卡光学四摄 | 骁龙8 Gen3旗舰芯 | 120W快充 | 5000mAh大电池 | 轻薄高颜值
+            </div>
+            <div class="product-price">¥ 4999 起</div>
+            <div class="product-attrs">
+                <span>12GB+256GB</span>
+                <span>16GB+512GB</span>
+                <span>黑色</span>
+                <span>白色</span>
+                <span>岩石青</span>
+            </div>
+            <div class="product-actions">
+                <button onclick="addToCart()">加入购物车</button>
+                <button onclick="addToFav()">收藏</button>
+            </div>
+            <div class="product-specs">
+                <h3>产品参数</h3>
+                <ul>
+                    <li>屏幕：6.73英寸 2K全等深微曲屏，120Hz刷新率</li>
+                    <li>处理器：高通骁龙8 Gen3</li>
+                    <li>内存：12GB/16GB</li>
+                    <li>存储：256GB/512GB</li>
+                    <li>后置摄像头：徕卡光学四摄 5000万像素主摄</li>
+                    <li>前置摄像头：3200万像素</li>
+                    <li>电池容量：5000mAh，支持120W有线快充</li>
+                    <li>操作系统：MIUI 15（基于Android 14）</li>
+                    <li>机身厚度：8.49mm</li>
+                    <li>重量：223g</li>
+                    <li>网络制式：5G全网通，WiFi 7</li>
+                    <li>特色功能：IP68防尘防水，屏下指纹，NFC，红外遥控</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 切换主图
+        function changeImg(el) {
+            document.getElementById('mainImg').src = el.src;
+            document.querySelectorAll('.thumbs img').forEach(img => img.classList.remove('active'));
+            el.classList.add('active');
+        }
+        // 加入购物车
+        function addToCart() {
+            alert('已加入购物车！（演示）');
+        }
+        // 收藏
+        function addToFav() {
+            alert('已收藏！（演示）');
+        }
+    </script>
+</body>
+
+</html>

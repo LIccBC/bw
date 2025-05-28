@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车 - 小米商城</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            font-family: 'Segoe UI', '微软雅黑', Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .cart-container {
+            max-width: 900px;
+            margin: 48px auto 0 auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #f3eaea;
+            padding: 36px 32px 28px 32px;
+        }
+
+        .cart-title {
+            font-size: 2em;
+            color: #f56600;
+            font-weight: bold;
+            margin-bottom: 28px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        .cart-table th,
+        .cart-table td {
+            padding: 14px 10px;
+            text-align: center;
+            border-bottom: 1px solid #f3eaea;
+        }
+
+        .cart-table th {
+            background: #fff3f3;
+            color: #F33F3F;
+            font-size: 17px;
+        }
+
+        .cart-table td {
+            font-size: 16px;
+            color: #232323;
+        }
+
+        .cart-table img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-actions button {
+            background: #f56600;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 18px;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 0 4px;
+            transition: background 0.2s;
+        }
+
+        .cart-actions button:hover {
+            background: #d35400;
+        }
+
+        .cart-summary {
+            text-align: right;
+            font-size: 18px;
+            color: #F33F3F;
+            margin-bottom: 18px;
+        }
+
+        .cart-empty {
+            color: #f56600;
+            text-align: center;
+            margin: 48px 0;
+            font-size: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .cart-container {
+                max-width: 98vw;
+                padding: 18px 2vw;
+            }
+
+            .cart-table th,
+            .cart-table td {
+                padding: 8px 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cart-container">
+        <div class="cart-title">购物车</div>
+        <table class="cart-table" id="cartTable">
+            <thead>
+                <tr>
+                    <th>商品</th>
+                    <th>名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 商品项由JS动态生成 -->
+            </tbody>
+        </table>
+        <div class="cart-summary" id="cartSummary"></div>
+        <div class="cart-empty" id="cartEmpty" style="display:none;">您的购物车为空，快去选购商品吧！</div>
+        <div style="text-align:right; margin-top: 16px;">
+            <a href="index.html"
+                style="display:inline-block; background:#bbb; color:#fff; border-radius:6px; padding:7px 22px; font-size:15px; text-decoration:none; margin-right:12px; transition:background 0.2s;">返回主页</a>
+            <button class="cart-actions" id="clearCartBtn">清空购物车</button>
+            <button class="cart-actions" id="checkoutBtn">去结算</button>
+        </div>
+    </div>
+    <script>
+        // 示例购物车数据
+        let cart = [
+            {
+                id: 1,
+                img: "carimg/q1.png",
+                name: "小米平板5 Pro",
+                price: 2499,
+                count: 1
+            },
+            {
+                id: 2,
+                img: "carimg/q2.png",
+                name: "小米14 Pro",
+                price: 4999,
+                count: 1
+            }
+        ];
+
+        function renderCart() {
+            const tbody = document.querySelector('#cartTable tbody');
+            const summary = document.getElementById('cartSummary');
+            const empty = document.getElementById('cartEmpty');
+            tbody.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                empty.style.display = '';
+                summary.innerText = '';
+                return;
+            }
+            empty.style.display = 'none';
+            cart.forEach(item => {
+                const tr = document.createElement('tr');
+                const subtotal = item.price * item.count;
+                total += subtotal;
+                tr.innerHTML = `
+                    <td><img src="${item.img}" alt="${item.name}"></td>
+                    <td>${item.name}</td>
+                    <td>&yen;${item.price}</td>
+                    <td>
+                        <button onclick="changeCount(${item.id},-1)">-</button>
+                        <span style="margin:0 8px;">${item.count}</span>
+                        <button onclick="changeCount(${item.id},1)">+</button>
+                    </td>
+                    <td>&yen;${subtotal}</td>
+                    <td>
+                        <button onclick="removeItem(${item.id})">删除</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            summary.innerText = `合计：¥${total}`;
+        }
+
+        window.changeCount = function (id, delta) {
+            cart = cart.map(item => {
+                if (item.id === id) {
+                    let newCount = item.count + delta;
+                    if (newCount < 1) newCount = 1;
+                    return { ...item, count: newCount };
+                }
+                return item;
+            });
+            renderCart();
+        };
+
+        window.removeItem = function (id) {
+            cart = cart.filter(item => item.id !== id);
+            renderCart();
+        };
+
+        document.getElementById('clearCartBtn').onclick = function () {
+            if (confirm('确定要清空购物车吗？')) {
+                cart = [];
+                renderCart();
+            }
+        };
+
+        document.getElementById('checkoutBtn').onclick = function () {
+            if (cart.length === 0) {
+                alert('购物车为空，无法结算！');
+                return;
+            }
+            alert('结算成功！（演示页面）');
+            cart = [];
+            renderCart();
+        };
+
+        renderCart();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消息通知 - 小米商城</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            font-family: 'Segoe UI', '微软雅黑', Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .message-container {
+            max-width: 700px;
+            margin: 48px auto 0 auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #f3eaea;
+            padding: 36px 32px 28px 32px;
+        }
+
+        .message-title {
+            font-size: 2em;
+            color: #f56600;
+            font-weight: bold;
+            margin-bottom: 28px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .message-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .message-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            background: #fff7f0;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px #f3eaea;
+            position: relative;
+        }
+
+        .message-item.unread {
+            border-left: 4px solid #f56600;
+        }
+
+        .message-icon {
+            font-size: 28px;
+            margin-top: 2px;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-content .msg-title {
+            font-size: 17px;
+            color: #232323;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .message-content .msg-time {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 4px;
+        }
+
+        .message-content .msg-body {
+            font-size: 15px;
+            color: #555;
+        }
+
+        .message-actions {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+        }
+
+        .message-actions button {
+            background: #f56600;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-left: 8px;
+            transition: background 0.2s;
+        }
+
+        .message-actions button:hover {
+            background: #d35400;
+        }
+
+        .no-message {
+            color: #f56600;
+            text-align: center;
+            margin: 48px 0;
+            font-size: 18px;
+        }
+
+        @media (max-width: 800px) {
+            .message-container {
+                max-width: 98vw;
+                padding: 18px 2vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="message-container">
+        <div class="message-title">消息通知</div>
+        <a href="index.html"
+            style="display:inline-block; background:#bbb; color:#fff; border-radius:6px; padding:7px 22px; font-size:15px; text-decoration:none; margin-bottom:18px; transition:background 0.2s;">返回主页</a>
+
+        <ul class="message-list" id="messageList">
+            <!-- 消息项由JS动态生成 -->
+        </ul>
+        <div class="no-message" id="noMessage" style="display:none;">暂无新消息</div>
+    </div>
+    <script>
+        // 示例消息数据
+        let messages = [
+            {
+                id: 1,
+                icon: "📦",
+                title: "订单已发货",
+                time: "2025-05-28 10:12",
+                body: "您的订单 202505280001 已发货，点击查看物流详情。",
+                unread: true
+            },
+            {
+                id: 2,
+                icon: "💬",
+                title: "客服回复",
+                time: "2025-05-27 19:45",
+                body: "您好，您反馈的问题已处理，请注意查收。",
+                unread: false
+            },
+            {
+                id: 3,
+                icon: "🎁",
+                title: "优惠活动",
+                time: "2025-05-26 09:00",
+                body: "618大促即将开启，海量好物低至5折，快来选购吧！",
+                unread: true
+            }
+        ];
+
+        function renderMessages() {
+            const list = document.getElementById('messageList');
+            const noMsg = document.getElementById('noMessage');
+            list.innerHTML = '';
+            if (messages.length === 0) {
+                noMsg.style.display = '';
+                return;
+            }
+            noMsg.style.display = 'none';
+            messages.forEach(msg => {
+                const li = document.createElement('li');
+                li.className = 'message-item' + (msg.unread ? ' unread' : '');
+                li.innerHTML = `
+                    <div class="message-icon">${msg.icon}</div>
+                    <div class="message-content">
+                        <div class="msg-title">${msg.title}</div>
+                        <div class="msg-time">${msg.time}</div>
+                        <div class="msg-body">${msg.body}</div>
+                    </div>
+                    <div class="message-actions">
+                        ${msg.unread ? `<button onclick="markRead(${msg.id})">标为已读</button>` : ''}
+                        <button onclick="deleteMsg(${msg.id})">删除</button>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        window.markRead = function (id) {
+            messages = messages.map(m => m.id === id ? { ...m, unread: false } : m);
+            renderMessages();
+        };
+        window.deleteMsg = function (id) {
+            messages = messages.filter(m => m.id !== id);
+            renderMessages();
+        };
+
+        renderMessages();
+    </script>
+</body>
+
+</html>

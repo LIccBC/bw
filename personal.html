@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 小米商城</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            font-family: 'Segoe UI', '微软雅黑', Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .mi-center-wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 0 40px 0;
+        }
+
+        .mi-center-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 38px 0 24px 0;
+            border-bottom: 1.5px solid #f2f2f2;
+        }
+
+        .mi-center-header .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f56600;
+            background: #fafafa;
+        }
+
+        .mi-center-header .user-info {
+            flex: 1;
+            margin-left: 28px;
+        }
+
+        .mi-center-header .user-info h2 {
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            color: #232323;
+        }
+
+        .mi-center-header .user-info .meta {
+            color: #888;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .mi-center-header .user-info .actions {
+            margin-top: 10px;
+        }
+
+        .mi-center-header .user-info .actions button {
+            background: #f56600;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background 0.2s;
+        }
+
+        .mi-center-header .user-info .actions button:last-child {
+            background: #bbb;
+            margin-right: 0;
+        }
+
+        .mi-center-header .user-info .actions button:hover {
+            background: #d35400;
+        }
+
+        .mi-center-header .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .mi-center-header .quick-links a {
+            color: #f56600;
+            font-size: 15px;
+            text-decoration: none;
+            background: #fffbe6;
+            border-radius: 5px;
+            padding: 5px 16px;
+            transition: background 0.2s;
+        }
+
+        .mi-center-header .quick-links a:hover {
+            background: #ffe5e5;
+        }
+
+        .mi-center-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 32px 0 0 0;
+            border-bottom: 1.5px solid #f2f2f2;
+        }
+
+        .mi-center-nav a {
+            flex: 1;
+            text-align: center;
+            padding: 18px 0 14px 0;
+            color: #888;
+            font-size: 17px;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .mi-center-nav a.active,
+        .mi-center-nav a:hover {
+            color: #f56600;
+            border-bottom: 3px solid #f56600;
+            background: #fffbe6;
+        }
+
+        .mi-center-content {
+            display: flex;
+            gap: 36px;
+            margin-top: 32px;
+        }
+
+        .mi-center-main {
+            flex: 2;
+        }
+
+        .mi-center-side {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .mi-card {
+            background: #fafafa;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #f3eaea;
+            padding: 24px 22px 18px 22px;
+            margin-bottom: 28px;
+        }
+
+        .mi-card h3 {
+            margin: 0 0 18px 0;
+            color: #f56600;
+            font-size: 18px;
+        }
+
+        .mi-stats {
+            display: flex;
+            gap: 18px;
+            justify-content: space-between;
+        }
+
+        .mi-stat {
+            flex: 1;
+            background: #fff;
+            border-radius: 8px;
+            text-align: center;
+            padding: 18px 0 12px 0;
+            box-shadow: 0 1px 4px #f3eaea;
+        }
+
+        .mi-stat .num {
+            font-size: 28px;
+            color: #f56600;
+            font-weight: bold;
+        }
+
+        .mi-stat .label {
+            color: #888;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .mi-orders-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mi-orders-list li {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border-bottom: 1px solid #f2f2f2;
+            padding: 14px 0;
+        }
+
+        .mi-orders-list li:last-child {
+            border-bottom: none;
+        }
+
+        .mi-orders-list img {
+            width: 54px;
+            height: 54px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .mi-orders-list .order-info {
+            flex: 1;
+        }
+
+        .mi-orders-list .order-title {
+            font-size: 16px;
+            color: #232323;
+            margin-bottom: 4px;
+        }
+
+        .mi-orders-list .order-meta {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .mi-orders-list .order-btn {
+            background: #f56600;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .mi-orders-list .order-btn:hover {
+            background: #d35400;
+        }
+
+        .mi-side-card {
+            background: #fffbe6;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #f3eaea;
+            padding: 18px 16px 12px 16px;
+            margin-bottom: 18px;
+        }
+
+        .mi-side-card h4 {
+            margin: 0 0 12px 0;
+            color: #f56600;
+            font-size: 16px;
+        }
+
+        .mi-fav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mi-fav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mi-fav-item img {
+            width: 38px;
+            height: 38px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .mi-fav-item .fav-title {
+            font-size: 14px;
+            color: #232323;
+            flex: 1;
+        }
+
+        .mi-fav-item .fav-btn {
+            background: #f56600;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 2px 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .mi-fav-item .fav-btn:hover {
+            background: #d35400;
+        }
+
+        @media (max-width: 900px) {
+            .mi-center-content {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .mi-center-side {
+                min-width: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .mi-center-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+            .mi-center-content {
+                margin-top: 18px;
+            }
+
+            .mi-center-main,
+            .mi-center-side {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mi-center-wrap">
+
+        <!-- 顶部LOGO和标题 -->
+        <div style="display: flex; align-items: center; margin-top: 28px; margin-bottom: 10px;">
+            <a href="index.html"><img src="img/logo.png" alt="logo"
+                    style="width:40px; height:40px; margin-right:12px;"></a>
+            <span style="font-size: 26px; color: #f56600; font-weight: bold; letter-spacing: 2px;">个人中心</span>
+        </div>
+        <!-- 顶部信息 -->
+        <div class="mi-center-header">
+            <img class="avatar" src="img/雷军.webp" alt="头像" onerror="this.src='img/default-avatar.png'">
+            <div class="user-info">
+                <h2>23215220108+黎柏成</h2>
+                <div class="meta">邮箱：user@example.com &nbsp;|&nbsp; 手机：138****8888</div>
+                <div class="actions">
+                    <button onclick="window.location.href='settings.html'">账户设置</button>
+                    <button onclick="window.location.href='logout.html'">退出登录</button>
+                </div>
+            </div>
+            <div class="quick-links">
+                <a href="shopcar.html">🛒 我的购物车</a>
+                <a href="orders.html">🧾 我的订单</a>
+                <a href="favorites.html">❤️ 我的收藏</a>
+                <a href="message.html">🔔 消息通知</a>
+            </div>
+        </div>
+        <!-- 导航栏 -->
+        <div class="mi-center-nav">
+            <a href="personal.html" class="active">账户信息</a>
+            <a href="orders.html">订单</a>
+            <a href="shopcar.html">购物车</a>
+            <a href="favorites.html">收藏</a>
+            <a href="settings.html">设置</a>
+        </div>
+        <!-- 主体内容 -->
+        <div class="mi-center-content">
+            <div class="mi-center-main">
+                <!-- 账户统计 -->
+                <div class="mi-card">
+                    <h3>账户统计</h3>
+                    <div class="mi-stats">
+                        <div class="mi-stat">
+                            <div class="num">2</div>
+                            <div class="label">订单</div>
+                        </div>
+                        <div class="mi-stat">
+                            <div class="num">1</div>
+                            <div class="label">购物车</div>
+                        </div>
+                        <div class="mi-stat">
+                            <div class="num">3</div>
+                            <div class="label">收藏</div>
+                        </div>
+                        <div class="mi-stat">
+                            <div class="num">1</div>
+                            <div class="label">收货地址</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 最近订单 -->
+                <div class="mi-card">
+                    <h3>最近订单</h3>
+                    <ul class="mi-orders-list">
+                        <li>
+                            <img src="carimg/q2.png" alt="订单商品">
+                            <div class="order-info">
+                                <div class="order-title">小米14 Pro</div>
+                                <div class="order-meta">2025-05-28 &nbsp;|&nbsp; 已发货</div>
+                            </div>
+                            <button class="order-btn" onclick="window.location.href='orders.html'">查看</button>
+                        </li>
+                        <li>
+                            <img src="carimg/q4.png" alt="订单商品">
+                            <div class="order-info">
+                                <div class="order-title">小米小爱音箱Play</div>
+                                <div class="order-meta">2025-05-25 &nbsp;|&nbsp; 已完成</div>
+                            </div>
+                            <button class="order-btn" onclick="window.location.href='orders.html'">查看</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 侧边栏内容 -->
+            <div class="mi-center-side">
+                <div class="mi-side-card">
+                    <h4>我的收藏</h4>
+                    <div class="mi-fav-list">
+                        <div class="mi-fav-item">
+                            <img src="carimg/q5.jpg" alt="收藏1">
+                            <div class="fav-title">小米平衡车</div>
+                            <button class="fav-btn" onclick="window.location.href='favorites.html'">查看</button>
+                        </div>
+                        <div class="mi-fav-item">
+                            <img src="carimg/q6.png" alt="收藏2">
+                            <div class="fav-title">小米电视6至尊版</div>
+                            <button class="fav-btn" onclick="window.location.href='favorites.html'">查看</button>
+                        </div>
+                        <div class="mi-fav-item">
+                            <img src="carimg/q7.png" alt="收藏3">
+                            <div class="fav-title">小米空调X1</div>
+                            <button class="fav-btn" onclick="window.location.href='favorites.html'">查看</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mi-side-card">
+                    <h4>快捷入口</h4>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <a href="address.html" style="color:#f56600;text-decoration:none;">📬 收货地址管理</a>
+                        <a href="settings.html" style="color:#f56600;text-decoration:none;">🔒 账号安全设置</a>
+                        <a href="message.html" style="color:#f56600;text-decoration:none;">📢 消息通知</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
